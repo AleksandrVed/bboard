@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ current_rubric.name }}{% endblock %}
+{% block content %}
+    <h1>Объявления</h1>
+    <h2>Рубрика :: {{ current_rubric.name }}</h2>
+    <table border="0" width="100%">
+
+        <tr><td>Название</td><td>Описание</td><td>Цена</td></tr>
+        {% for bb in bbs %}
+        <tr>
+            <td>{{ bb.title }}</td>
+            <td>{{ bb.content }}</td>
+            <td>{{ bb.price }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

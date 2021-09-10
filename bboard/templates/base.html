@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Title {% endblock %}</title>
+    {% load static %}
+    {% csrf_token %}
+</head>
+<body>
+    <table border="0" cellspacing="0" width="100%">
+        <tr>
+            <td colspan="10" bgcolor="">
+                    <img src="{% static '/img/emb.png' %}"
+                         style="width:100px; heigth:100px"
+                        align="absmiddle">
+                    <font size=7>BillBoardHub</font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table border="0" cellspacing="0" width="100%" >
+                    <ul type="none">
+                        <h3>Меню </h3>
+                        <li><a href="{% url 'main' %}">Main</a></li>
+                        <li><a href="{% url 'add' %}">Add</a></li>
+                    </ul>
+                </table>
+            </td>
+            <td width="80%">
+                {% block content %}{% endblock content %}
+            </td>
+            <td>
+                <ul>
+                    <h3>Категории</h3>
+                    {% for rubric in rubrics %}
+                        <li type="none"><a href="{% url 'by_rubric' rubric.pk %}" >{{ rubric.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr align="center">
+            <td colspan="10" bgcolor=""><hr color="black">
+                <p style="color: ">Copyright OOO "Моя оборона", 2021. Все права защищены</p>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
