@@ -12,6 +12,8 @@ class Bb(models.Model):
         ordering = ['-published']
     def __str__(self):
         return self.title
+    def __unicode__(self):
+        return self.title
 
 class Rubric(models.Model):
     name = models.CharField(max_length=20, db_index=True, verbose_name='Название')
@@ -20,4 +22,6 @@ class Rubric(models.Model):
         verbose_name = 'Рубрика'
         ordering = ['name']
     def __str__(self):
+        return self.name
+    def __unicode__(self):
         return self.name

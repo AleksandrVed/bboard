@@ -1,12 +1,10 @@
 {% extends "base.html" %}
-{% block title %}{{ current_rubric.name }}{% endblock %}
 {% block content %}
     <h1>Объявления</h1>
-    <h2>Рубрика :: {{ current_rubric.name }}</h2>
     <table border="0" width="100%">
 
         <tr><td>Название</td><td>Описание</td><td>Цена</td></tr>
-        {% for bb in bbs %}
+        {% for bb in obyavleniya %}
         <tr>
             <td><a href="{% url 'obj' bb.pk %}">{{bb.title }}</a> </td>
             <td>{{ bb.content }}</td>

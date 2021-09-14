@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %} Title {% endblock %}</title>
+    <title>{% block title %} Главная страница {% endblock %}</title>
     {% load static %}
     {% csrf_token %}
 </head>
@@ -31,10 +31,12 @@
             </td>
             <td>
                 <ul>
+                    {% if rubrics %}
                     <h3>Категории</h3>
                     {% for rubric in rubrics %}
                         <li type="none"><a href="{% url 'by_rubric' rubric.pk %}" >{{ rubric.name }}</a></li>
                     {% endfor %}
+                    {% endif %}
                 </ul>
             </td>
         </tr>

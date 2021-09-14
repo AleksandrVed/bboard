@@ -4,14 +4,21 @@ from django.http import HttpResponse
 from .models import Bb, Rubric
 from . import forms
 from django.views.generic.edit import CreateView
+from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy
-def index(request):
-#    s = 'Список объявлений\r\n\r\n\r\n'
-#    for bb in Bb.objects.order_by('-published'):
-#        s += bb.title + '\r\n' + bb.content + '\r\n\r\n'
-    bbs = Bb.objects.all()
+#def index(request):
+##    s = 'Список объявлений\r\n\r\n\r\n'
+##    for bb in Bb.objects.order_by('-published'):
+##        s += bb.title + '\r\n' + bb.content + '\r\n\r\n'
+#    bbs = Bb.objects.all()
+#    rub = Rubric.objects.all()
+#    return render(request, "main.html", context={'bbs': bbs, 'rubrics': rub,})
+
+class index(ListView):
+    model = Bb
+    context_object_name = 'obyavleniya'
     rub = Rubric.objects.all()
-    return render(request, "main.html", context={'bbs': bbs, 'rubrics': rub,})
+    extra_context ={'rubrics': rub}
 
 def by_rubric(request, rubric_id):
     bbs = Bb.objects.filter(rubric=rubric_id)
@@ -19,6 +26,11 @@ def by_rubric(request, rubric_id):
     current_rubric = Rubric.objects.get(pk=rubric_id)
     context = {'bbs': bbs, 'rubrics': rubrics, 'current_rubric': current_rubric}
     return render(request, "by_rubric.html", context)
+
+class objec(DetailView):
+    model = Bb
+    template_name = 'detail.html'
+
 
 class BbCreateView(CreateView):
     template_name = 'create.html'
