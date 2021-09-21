@@ -23,6 +23,12 @@
                         <h3>Меню </h3>
                         <li><a href="{% url 'main' %}">Main</a></li>
                         <li><a href="{% url 'add' %}">Add</a></li>
+                        {% if user.is_authenticated %}
+                        <li>Привет, {{user}}</li>
+                        <li><a href="{% url 'logout' %}">Выйти</a> </li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}">Войти</a> </li>
+                        {% endif %}
                     </ul>
                 </table>
             </td>

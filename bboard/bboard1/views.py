@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-# Create your views here.
 from .models import Bb, Rubric
 from . import forms
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, FormView
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+
 def index(request):
 ##    s = 'Список объявлений\r\n\r\n\r\n'
 ##    for bb in Bb.objects.order_by('-published'):
@@ -73,3 +75,37 @@ class BbUpdateView(UpdateView):
 class BbDeleteView(DeleteView):
     model = Bb
     success_url = reverse_lazy('main')
+
+"""class registre(FormView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'register_form.html'
+    def form_valid(self, form):
+        form.save()
+        return super(registre, self).form_valid(form)
+    def form_invalid(self, form):
+        return super(registre, self).form_invalid(form)"""
+
+def registre(request):
+    data = {}
+    if request.method == 'POST':
+        form = forms.RegistForm(request.POST)
+        emal = request.POST.get("email")
+        if User.objects.filter(email=emal):
+            dat = form
+            msg = str("Пользователь с такой электронной почтой уже есть")
+            return render(request, 'registration/registr.html', context={'msg': msg, 'form': dat})
+        else:
+            if form.is_valid():
+                form.save()
+                dat = form
+                msg = str("Регистрация прошла успешно")
+                return render(request, 'registration/registr.html', context={'msg': msg, 'form': dat})
+            else:
+                dat = form
+                err = str("Ошибка при регитрации, проверьте совпадают ли пароли")
+                return render(request, 'registration/registr.html', context={'msg': err, 'form': dat})
+    else:
+        form = forms.RegistForm()
+        dat = form
+        return render(request, 'registration/registr.html', context={'form': dat})
