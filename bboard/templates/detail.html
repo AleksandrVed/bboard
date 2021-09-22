@@ -5,6 +5,9 @@
     <h2>{{bb.title}}</h2>
     <h3>{{bb.content}}</h3>
     <h4>{{bb.price}}</h4>
+    <p>{{user.username}} = {{bb.author}}</p>
+    {% if user.id == bb.author %}
     <a href="{% url 'edit' bb.pk %}">Редактировать</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url 'delete' bb.pk %}">Удалить</a>
+    {% endif %}
 <p>{{bb.published}}</p>
 {% endblock %}

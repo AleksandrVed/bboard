@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Bb(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название')
@@ -6,6 +7,7 @@ class Bb(models.Model):
     price = models.FloatField(null=True, blank=True, verbose_name='Цена')
     published = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Дата публикации')
     rubric = models.ForeignKey('Rubric', null = True, on_delete=models.PROTECT, verbose_name='Рубрика')
+    author = models.ForeignKey(User, null = True, blank=True, on_delete=models.CASCADE, verbose_name='Автор')
     class Meta:
         verbose_name_plural='Объявления'
         verbose_name='Объявление'
